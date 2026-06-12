@@ -123,29 +123,31 @@
     }
 }
 
-/* ---- core competencies carousel, matched to the reference section's
-   measured proportions (header 13.3vw at -5% tracking, 34vw cards with
-   1.44:1 imagery, 5.2vw gutters) on a black ground ---- */
+/* ---- core competencies carousel, matched to the reference's measured
+   desktop spec: 8vw one-line header at -5% tracking, slides of a 44.6vw
+   1.45:1 image with a 19.3vw text column beside it, 3.125vw gutters,
+   dotted progress rail — on a black ground ---- */
 .zhg-cc {
     background: #000;
     color: #fff;
-    padding: clamp(3rem, 7vw, 8rem) 0 clamp(2.5rem, 5vw, 5.5rem);
+    padding: clamp(3rem, 6vw, 7rem) 0 clamp(2.5rem, 5vw, 6rem);
     font-family: 'ZHG HN', Helvetica, Arial, sans-serif;
     overflow: hidden;
 }
 
 .zhg-cc-head {
-    margin: 0 5.2vw 7.3vw;
-    font-size: 13.3vw;
+    margin: 0 3.125vw 4.4vw;
+    font-size: 8vw;
     font-weight: 400;
     line-height: 1.05;
     letter-spacing: -0.05em;
+    white-space: nowrap;
 }
 
 .zhg-cc-row {
     display: flex;
-    gap: 5.2vw;
-    padding: 0 5.2vw;
+    gap: 3.5vw;
+    padding: 0 3.125vw;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
@@ -156,67 +158,117 @@
 }
 
 .zhg-cc-card {
-    flex: 0 0 33.9vw;
+    flex: 0 0 auto;
+    display: flex;
+    gap: 3.125vw;
     scroll-snap-align: start;
 }
 
 .zhg-cc-card img {
-    width: 100%;
-    aspect-ratio: 1.44 / 1;
+    width: 44.6vw;
+    aspect-ratio: 1.45 / 1;
     object-fit: cover;
     display: block;
-    margin-bottom: 24px;
+}
+
+.zhg-cc-text {
+    width: 19.3vw;
+    padding-top: 8.4vw;
 }
 
 .zhg-cc-card h3 {
-    margin: 0 0 16px;
-    font-size: clamp(22px, 3.33vw, 40px);
+    margin: 0;
+    font-size: 2.5vw;
     font-weight: 500;
     line-height: 1.08;
+    text-transform: uppercase;
 }
 
 .zhg-cc-card p {
-    margin: 0;
-    font-size: 15px;
+    margin: 1.35vw 0 0;
+    font-size: 1.125vw;
     line-height: 1.33;
     color: rgba(255, 255, 255, 0.55);
-    max-width: 36ch;
 }
 
+/* progress rail: a thin line through evenly spaced dots, centered */
 .zhg-cc-dots {
+    position: relative;
     display: flex;
-    gap: 0.6rem;
-    margin: 2.2rem 2rem 0;
+    justify-content: space-between;
+    align-items: center;
+    width: 40vw;
+    margin: 5.5vw auto 0;
+}
+
+.zhg-cc-dots::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.25);
 }
 
 .zhg-cc-dot {
-    width: 8px;
-    height: 8px;
+    position: relative;
+    width: 7px;
+    height: 7px;
     padding: 0;
     border: none;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.35);
     cursor: pointer;
-    transition: background 0.25s ease;
+    transition: background 0.25s ease, transform 0.25s ease;
 }
 
 .zhg-cc-dot.active {
     background: #F07020;
+    transform: scale(1.45);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1099px) {
     .zhg-cc-head {
-        margin-left: 1.428rem;
+        font-size: 13.3vw;
+        white-space: normal;
+        margin: 0 5.2vw 7.3vw;
     }
 
-    .zhg-cc-row,
-    .zhg-cc-dots {
-        padding-left: 1.428rem;
-        margin-left: 0;
+    .zhg-cc-row {
+        gap: 5.2vw;
+        padding: 0 5.2vw;
     }
 
     .zhg-cc-card {
-        flex-basis: 78vw;
+        flex: 0 0 78vw;
+        display: block;
+    }
+
+    .zhg-cc-card img {
+        width: 100%;
+        aspect-ratio: 1.44 / 1;
+        margin-bottom: 24px;
+    }
+
+    .zhg-cc-text {
+        width: auto;
+        padding-top: 0;
+    }
+
+    .zhg-cc-card h3 {
+        font-size: clamp(22px, 3.33vw, 40px);
+        text-transform: none;
+    }
+
+    .zhg-cc-card p {
+        margin-top: 16px;
+        font-size: 15px;
+        max-width: 36ch;
+    }
+
+    .zhg-cc-dots {
+        width: 70vw;
     }
 }
 

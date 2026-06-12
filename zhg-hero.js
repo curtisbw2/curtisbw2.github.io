@@ -225,12 +225,12 @@
 
         var sec = document.createElement('section');
         sec.className = 'zhg-cc';
-        var html = '<h2 class="zhg-cc-head">Core<br>competencies</h2><div class="zhg-cc-row">';
+        var html = '<h2 class="zhg-cc-head">Core competencies</h2><div class="zhg-cc-row">';
         CC_CARDS.forEach(function (c) {
             html += '<article class="zhg-cc-card">' +
                 '<img src="' + c.img + '" alt="" loading="lazy">' +
-                '<h3>' + c.title + '</h3>' +
-                '<p>' + c.desc + '</p></article>';
+                '<div class="zhg-cc-text"><h3>' + c.title + '</h3>' +
+                '<p>' + c.desc + '</p></div></article>';
         });
         html += '</div><div class="zhg-cc-dots"></div>';
         sec.innerHTML = html;
@@ -249,8 +249,10 @@
             dotsWrap.appendChild(d);
         });
         row.addEventListener('scroll', function () {
-            var cardW = row.children[0].offsetWidth + 24;
-            var idx = Math.min(CC_CARDS.length - 1, Math.round(row.scrollLeft / cardW));
+            var stride = row.children.length > 1
+                ? row.children[1].offsetLeft - row.children[0].offsetLeft
+                : row.children[0].offsetWidth;
+            var idx = Math.min(CC_CARDS.length - 1, Math.round(row.scrollLeft / stride));
             [].forEach.call(dotsWrap.children, function (d, i) {
                 d.classList.toggle('active', i === idx);
             });
