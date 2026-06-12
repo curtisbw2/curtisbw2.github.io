@@ -33,8 +33,9 @@
             wrap.style.display = 'flex';
         }
         if (wrap.querySelector('.zhg-footer-cols')) return;
-        var bottom = wrap.querySelector('.bottom');
-        if (!bottom) return;
+        var top = wrap.querySelector('.top');
+        if (!top) return;
+        // compact footer: link columns share the top row with the logo
         var cols = document.createElement('div');
         cols.className = 'zhg-footer-cols';
         cols.innerHTML =
@@ -51,12 +52,8 @@
             '<a href="#">YouTube</a>' +
             '<a href="#">Substack</a>' +
             '<a href="mailto:contact@thezerohourgroup.com">contact@thezerohourgroup.com</a>' +
-            '</div>' +
-            '<div class="zhg-footer-col zhg-footer-tag">' +
-            '<h6>The Zero Hour Group</h6>' +
-            '<p>Defense &amp; tech investor discovery.<br>By retail, for retail.</p>' +
             '</div>';
-        wrap.insertBefore(cols, bottom);
+        top.appendChild(cols);
     }
 
     window.addEventListener('scroll', update, { passive: true });

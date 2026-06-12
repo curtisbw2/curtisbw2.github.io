@@ -32,28 +32,32 @@ a[aria-label="Zero Hour Group Homepage"] svg image {
     transform: scale(1.86);
 }
 
-/* ZHG footer columns on the site's own 12-column grid: logo owns the left,
-   link columns occupy the right half — mirroring the reference layout */
+/* compact ZHG footer: one band — logo top-left, link columns top-right.
+   The app's bottom row (copyright/contact) is dropped entirely. */
+.Footer.Footer .wrapper .bottom {
+    display: none !important;
+}
+
+.Footer.Footer .wrapper {
+    gap: 0;
+}
+
 .zhg-footer-cols {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: 1.25rem 1.125rem;
-    margin: 0 2rem;
+    grid-row: 1;
+    grid-column: 9 / -1;
+    display: flex;
+    justify-content: flex-end;
+    gap: clamp(2rem, 5vw, 5rem);
     font-family: HelveticaNowDisplay, Helvetica, Arial, sans-serif;
 }
 
 .zhg-footer-col {
     display: flex;
     flex-direction: column;
-    gap: 0;
 }
 
-.zhg-footer-col:nth-child(1) { grid-column: 7 / span 2; }
-.zhg-footer-col:nth-child(2) { grid-column: 9 / span 2; }
-.zhg-footer-col:nth-child(3) { grid-column: 11 / span 2; }
-
 .zhg-footer-col h6 {
-    margin: 0 0 2rem;
+    margin: 0 0 1rem;
     font-size: 0.75rem;
     font-weight: 400;
     letter-spacing: 0.03rem;
@@ -64,8 +68,8 @@ a[aria-label="Zero Hour Group Homepage"] svg image {
 .zhg-footer-col a {
     color: inherit;
     text-decoration: none;
-    font-size: 1rem;
-    line-height: 1.95;
+    font-size: 0.95rem;
+    line-height: 1.7;
     transition: color 0.2s ease;
 }
 
@@ -73,24 +77,12 @@ a[aria-label="Zero Hour Group Homepage"] svg image {
     color: #F07020;
 }
 
-.zhg-footer-tag p {
-    margin: 0;
-    font-size: 1rem;
-    line-height: 1.95;
-    opacity: 0.7;
-}
-
 @media (max-width: 768px) {
     .zhg-footer-cols {
-        margin: 0 1.428rem;
-        row-gap: 2.5rem;
-    }
-
-    .zhg-footer-col:nth-child(1) { grid-column: 1 / span 6; }
-    .zhg-footer-col:nth-child(2) { grid-column: 7 / span 6; }
-    .zhg-footer-col:nth-child(3) { grid-column: 1 / span 12; }
-
-    .zhg-footer-col h6 {
-        margin-bottom: 1rem;
+        grid-row: auto;
+        grid-column: 1 / -1;
+        justify-content: flex-start;
+        gap: 2.5rem;
+        margin-top: 2rem;
     }
 }
