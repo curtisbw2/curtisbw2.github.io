@@ -20,7 +20,38 @@
         });
     }
 
+    // lean ZHG footer: two link columns between the wordmark and the
+    // copyright/contact row. No legal links, no newsletter, no clutter.
+    function enhanceFooter() {
+        var wrap = document.querySelector('.Footer .wrapper');
+        if (!wrap || wrap.querySelector('.zhg-footer-cols')) return;
+        var bottom = wrap.querySelector('.bottom');
+        if (!bottom) return;
+        var cols = document.createElement('div');
+        cols.className = 'zhg-footer-cols';
+        cols.innerHTML =
+            '<div class="zhg-footer-col">' +
+            '<h6>Content</h6>' +
+            '<a href="/sea/seapower/">Interviews</a>' +
+            '<a href="/land/counter-intrusion/">Coverage</a>' +
+            '<a href="/air/tactical-reconnaissance-and-strike/">Explainers</a>' +
+            '<a href="/lattice/command-and-control/">How We Work</a>' +
+            '</div>' +
+            '<div class="zhg-footer-col">' +
+            '<h6>Connect</h6>' +
+            '<a href="https://x.com/Zero_Hour_Group" target="_blank" rel="noopener">X / Twitter</a>' +
+            '<a href="#">YouTube</a>' +
+            '<a href="#">Substack</a>' +
+            '<a href="mailto:contact@thezerohourgroup.com">contact@thezerohourgroup.com</a>' +
+            '</div>' +
+            '<div class="zhg-footer-col zhg-footer-tag">' +
+            '<h6>The Zero Hour Group</h6>' +
+            '<p>Defense &amp; tech investor discovery.<br>By retail, for retail.</p>' +
+            '</div>';
+        wrap.insertBefore(cols, bottom);
+    }
+
     window.addEventListener('scroll', update, { passive: true });
-    setInterval(update, 250); // covers Lenis-driven scroll and SPA navigation
+    setInterval(function () { update(); enhanceFooter(); }, 250); // covers Lenis scroll + SPA navigation
     update();
 })();

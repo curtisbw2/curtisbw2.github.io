@@ -31,3 +31,64 @@ a[aria-label="Zero Hour Group Homepage"] svg image {
     transform-origin: left center;
     transform: scale(1.86);
 }
+
+/* lean ZHG footer columns, injected between the wordmark and the contact row */
+.zhg-footer-cols {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3rem 5rem;
+    padding: 2.5rem 0 3rem;
+}
+
+.zhg-footer-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    min-width: 160px;
+}
+
+.zhg-footer-col h6 {
+    margin: 0 0 0.35rem;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.55;
+}
+
+.zhg-footer-col a {
+    color: inherit;
+    text-decoration: none;
+    font-size: 0.92rem;
+    opacity: 0.85;
+    transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.zhg-footer-col a:hover {
+    color: #F07020;
+    opacity: 1;
+}
+
+.zhg-footer-tag {
+    margin-left: auto;
+    text-align: right;
+}
+
+.zhg-footer-tag p {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.55;
+    opacity: 0.7;
+}
+
+@media (max-width: 768px) {
+    .zhg-footer-cols {
+        gap: 2rem 3rem;
+        padding: 2rem 0;
+    }
+
+    .zhg-footer-tag {
+        margin-left: 0;
+        text-align: left;
+    }
+}
