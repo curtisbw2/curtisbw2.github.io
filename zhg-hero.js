@@ -208,11 +208,61 @@
         requestAnimationFrame(tick);
     }
 
+    // "Core competencies" carousel between the hero and the company cards:
+    // oversized headline, horizontally snapping cards, pagination dots.
+    var CC_CARDS = [
+        { img: '/zhg-cc-access.jpg', title: 'Direct Access', desc: 'Long-form interviews with the leadership of emerging defense and tech companies.' },
+        { img: '/zhg-cc-earnings.jpg', title: 'Earnings Coverage', desc: 'Live earnings streams, post-call breakdowns, and retail analyst panels.' },
+        { img: '/zhg-cc-explainers.jpg', title: 'Tech Explainers', desc: 'Short-form video that decodes the technology behind the thesis.' },
+        { img: '/zhg-cc-research.jpg', title: 'Sector Research', desc: 'M&A, contracts, and backlog analysis across the drone and C-UAS ecosystem.' },
+        { img: '/zhg-cc-community.jpg', title: 'Community', desc: 'Collaborative panels and shared research — by retail, for retail.' },
+    ];
+
+    function injectCompetencies() {
+        if (document.querySelector('.zhg-cc')) return;
+        var anchor = document.querySelector('.FeaturedProducts');
+        if (!anchor || !anchor.parentElement) return;
+
+        var sec = document.createElement('section');
+        sec.className = 'zhg-cc';
+        var html = '<h2 class="zhg-cc-head">Core<br>competencies</h2><div class="zhg-cc-row">';
+        CC_CARDS.forEach(function (c) {
+            html += '<article class="zhg-cc-card">' +
+                '<img src="' + c.img + '" alt="" loading="lazy">' +
+                '<h3>' + c.title + '</h3>' +
+                '<p>' + c.desc + '</p></article>';
+        });
+        html += '</div><div class="zhg-cc-dots"></div>';
+        sec.innerHTML = html;
+        anchor.parentElement.insertBefore(sec, anchor);
+
+        var row = sec.querySelector('.zhg-cc-row');
+        var dotsWrap = sec.querySelector('.zhg-cc-dots');
+        CC_CARDS.forEach(function (_, i) {
+            var d = document.createElement('button');
+            d.className = 'zhg-cc-dot' + (i === 0 ? ' active' : '');
+            d.setAttribute('aria-label', 'Go to card ' + (i + 1));
+            d.addEventListener('click', function () {
+                var card = row.children[i];
+                row.scrollTo({ left: card.offsetLeft - row.offsetLeft, behavior: 'smooth' });
+            });
+            dotsWrap.appendChild(d);
+        });
+        row.addEventListener('scroll', function () {
+            var cardW = row.children[0].offsetWidth + 24;
+            var idx = Math.min(CC_CARDS.length - 1, Math.round(row.scrollLeft / cardW));
+            [].forEach.call(dotsWrap.children, function (d, i) {
+                d.classList.toggle('active', i === idx);
+            });
+        }, { passive: true });
+    }
+
     setInterval(function () {
         var hero = document.querySelector('.HomeHero');
         if (hero && !hero.__zhgHero && hero.querySelector('video')) {
             hero.__zhgHero = true;
             build(hero);
         }
+        injectCompetencies();
     }, 300);
 })();
