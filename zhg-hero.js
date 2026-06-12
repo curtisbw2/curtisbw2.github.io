@@ -216,7 +216,7 @@
         if (!img) return;
         var vid = document.createElement('video');
         vid.className = 'zhg-interview-broll';
-        vid.src = '/zhg-interview-broll.mp4';
+        vid.src = '/zhg-interview-broll-2.mp4';
         vid.muted = true;
         vid.loop = true;
         vid.autoplay = true;
