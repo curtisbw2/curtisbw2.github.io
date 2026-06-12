@@ -105,12 +105,20 @@
     }
 }
 
-/* featured-interview broll video fills the slot its image occupied */
+/* featured-interview broll video fills the slot its image occupied;
+   on desktop it sits at half width, centered */
 .zhg-interview-broll {
     width: 100%;
     height: auto;
     display: block;
     object-fit: cover;
+}
+
+@media (min-width: 769px) {
+    .zhg-interview-broll {
+        width: 50%;
+        margin: 0 auto;
+    }
 }
 
 .zhg-sub-l {
