@@ -105,19 +105,21 @@
     }
 }
 
-/* featured-interview broll video fills the slot its image occupied;
-   on desktop it sits at half width, centered */
-.zhg-interview-broll {
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit: cover;
+/* featured-interview media: screenshot sits left-aligned on the cream panel,
+   framed so it reads as an embedded chart rather than a raw image dump */
+.AnnouncementSlice .imageWrapper img {
+    border: 1px solid rgba(1, 1, 1, 0.14);
+    box-shadow: 0 14px 44px rgba(1, 1, 1, 0.14);
 }
 
 @media (min-width: 769px) {
-    .zhg-interview-broll {
-        width: 50%;
-        margin: 0 auto;
+    .AnnouncementSlice .imageWrapper {
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .AnnouncementSlice .imageWrapper img {
+        width: 52%;
     }
 }
 

@@ -208,29 +208,11 @@
         requestAnimationFrame(tick);
     }
 
-    // featured-interview section: the app's renderer only supports images here,
-    // so once it mounts we swap the image for a looping broll video. The slide-in
-    // animation lives on the wrapper, so it still applies.
-    function swapAnnouncementMedia() {
-        var img = document.querySelector('.AnnouncementSlice .imageWrapper img');
-        if (!img) return;
-        var vid = document.createElement('video');
-        vid.className = 'zhg-interview-broll';
-        vid.src = '/zhg-interview-broll-2.mp4';
-        vid.muted = true;
-        vid.loop = true;
-        vid.autoplay = true;
-        vid.playsInline = true;
-        vid.setAttribute('aria-label', 'Interview broll');
-        img.replaceWith(vid);
-    }
-
     setInterval(function () {
         var hero = document.querySelector('.HomeHero');
         if (hero && !hero.__zhgHero && hero.querySelector('video')) {
             hero.__zhgHero = true;
             build(hero);
         }
-        swapAnnouncementMedia();
     }, 300);
 })();
