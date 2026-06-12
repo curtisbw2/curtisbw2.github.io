@@ -1,0 +1,133 @@
+/* ZHG hero title overlay — DOM text animated with a scramble/decode effect,
+   layered over the clean hero footage. */
+@font-face {
+    font-family: 'ZHG HN';
+    src: url('/assets/fonts/HelveticaNowDisplay-Medium.xxyFGheqmC.woff2') format('woff2');
+    font-weight: 500;
+}
+
+.HomeHero {
+    position: relative;
+    background: #000000;
+    /* fill the full viewport so the next section never peeks in at the top */
+    min-height: 100vh;
+}
+
+.HomeHero .mediaWrapper {
+    min-height: 100vh;
+}
+
+/* Black hero: hide the background footage but keep its layout (it drives the
+   section height). Scoped to the media wrapper so the emblem video stays visible. */
+.HomeHero .mediaWrapper video {
+    visibility: hidden;
+}
+
+.zhg-hero-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    color: #fff;
+    text-align: center;
+}
+
+/* typed lines: the invisible sizer reserves the final width (so the block stays
+   centered), the live text types from its left edge */
+.zhg-line-wrap {
+    display: inline-block;
+    position: relative;
+    white-space: nowrap;
+}
+
+.zhg-line-size {
+    visibility: hidden;
+}
+
+.zhg-line-live {
+    position: absolute;
+    left: 0;
+    top: 0;
+    white-space: nowrap;
+}
+
+.zhg-hero-big {
+    font-family: 'ZHG HN', Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    font-size: clamp(34px, 7vw, 118px);
+    line-height: 0.98;
+    letter-spacing: -0.015em;
+    white-space: nowrap;
+}
+
+.zhg-hero-sub {
+    margin-top: clamp(20px, 3vw, 56px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(18px, 2.6vw, 52px);
+}
+
+/* the animated emblem: square-cropped looping clip that decodes in like the
+   text — hidden until its slot in the choreography, then a left-to-right
+   reveal wipe with a brief flicker */
+.zhg-emblem {
+    width: clamp(88px, 10vw, 192px);
+    height: clamp(88px, 10vw, 192px);
+    flex: none;
+    object-fit: cover;
+    display: block;
+    opacity: 0;
+    pointer-events: auto; /* the overlay ignores clicks; the coin takes them */
+    cursor: pointer;
+}
+
+.zhg-emblem.zhg-emblem-show {
+    animation: zhg-emblem-decode 0.55s ease-out forwards;
+}
+
+@keyframes zhg-emblem-decode {
+    0%   { clip-path: inset(0 100% 0 0); opacity: 1; }
+    20%  { opacity: 0.45; }
+    35%  { opacity: 1; }
+    55%  { opacity: 0.6; }
+    70%  { opacity: 1; }
+    100% { clip-path: inset(0 0 0 0); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .zhg-emblem.zhg-emblem-show {
+        animation: none;
+        opacity: 1;
+    }
+}
+
+/* featured-interview broll video fills the slot its image occupied */
+.zhg-interview-broll {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+.zhg-sub-l {
+    font-family: 'ZHG HN', Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    font-size: clamp(13px, 1.55vw, 30px);
+    letter-spacing: 0.1em;
+    line-height: 1.45;
+    text-align: right;
+    text-transform: uppercase;
+}
+
+.zhg-sub-r {
+    font-family: 'Courier New', monospace;
+    font-weight: 700;
+    font-size: clamp(12px, 1.35vw, 26px);
+    letter-spacing: 0.08em;
+    line-height: 1.6;
+    text-align: left;
+}

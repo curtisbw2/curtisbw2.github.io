@@ -1,0 +1,33 @@
+/* ZHG nav: PDW-style transparency — fully transparent at the very top of the
+   page, solid as soon as you scroll. Works on top of the app's own frost system
+   by overriding its CSS variables while the .zhg-nav-top class is present. */
+.HeaderDesktop .navWrapper:after,
+.HeaderMobile .nav-bg:after {
+    transition: opacity 0.3s ease;
+}
+
+.zhg-nav-top {
+    --frosted: 0 !important;
+    --backgroundOpacity: 0 !important;
+}
+
+/* Full-bleed hero: Anduril insets the hero video 2rem from each side; ZHG wants
+   the video edge-to-edge. Sections below the hero keep their original padding. */
+.HomeHero .mediaWrapper {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+/* Nav logo: render larger than its slot without changing the nav bar's height.
+   The SVG box keeps its layout size; the image scales up and overflows it. */
+a[aria-label="Home"] svg,
+a[aria-label="Zero Hour Group Homepage"] svg {
+    overflow: visible;
+}
+
+a[aria-label="Home"] svg image,
+a[aria-label="Zero Hour Group Homepage"] svg image {
+    transform-box: fill-box;
+    transform-origin: left center;
+    transform: scale(1.86);
+}
