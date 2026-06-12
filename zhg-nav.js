@@ -24,7 +24,15 @@
     // copyright/contact row. No legal links, no newsletter, no clutter.
     function enhanceFooter() {
         var wrap = document.querySelector('.Footer .wrapper');
-        if (!wrap || wrap.querySelector('.zhg-footer-cols')) return;
+        if (!wrap) return;
+        // the app is supposed to reveal the wrapper on first scroll, but its
+        // footer init dies silently in the mirror — reveal it ourselves once
+        // the app has booted (the header existing is the boot signal)
+        if (getComputedStyle(wrap).display === 'none') {
+            if (!document.querySelector('.HeaderDesktop, .HeaderMobile')) return;
+            wrap.style.display = 'flex';
+        }
+        if (wrap.querySelector('.zhg-footer-cols')) return;
         var bottom = wrap.querySelector('.bottom');
         if (!bottom) return;
         var cols = document.createElement('div');
