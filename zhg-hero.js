@@ -211,11 +211,10 @@
     // "Core competencies" carousel between the hero and the company cards:
     // oversized headline, horizontally snapping cards, pagination dots.
     var CC_CARDS = [
-        { img: '/zhg-cc-access.jpg', title: 'Direct Access', desc: 'Long-form interviews with the leadership of emerging defense and tech companies.' },
-        { img: '/zhg-cc-earnings.jpg', title: 'Earnings Coverage', desc: 'Live earnings streams, post-call breakdowns, and retail analyst panels.' },
-        { img: '/zhg-cc-explainers.jpg', title: 'Tech Explainers', desc: 'Short-form video that decodes the technology behind the thesis.' },
-        { img: '/zhg-cc-research.jpg', title: 'Sector Research', desc: 'M&A, contracts, and backlog analysis across the drone and C-UAS ecosystem.' },
-        { img: '/zhg-cc-community.jpg', title: 'Community', desc: 'Collaborative panels and shared research — by retail, for retail.' },
+        { img: '/zhg-focus-future.jpg', title: 'Technology of Tomorrow', desc: 'The frontier platforms reshaping how nations defend, build, and compete.' },
+        { img: '/zhg-focus-defense.avif', title: 'Defense', desc: 'Drones, counter-UAS, and next-generation systems driving the modernization of Western arsenals.' },
+        { img: '/zhg-focus-ai.avif', title: 'AI Robotics', desc: 'Autonomy moving from prototype to production: machine vision, robotics, and the software that commands them.' },
+        { img: '/zhg-focus-energy.jpg', title: 'Energy', desc: 'The power infrastructure behind it all: storage, grid resilience, and the buildout feeding compute and defense alike.' },
     ];
 
     function injectCompetencies() {
@@ -225,7 +224,7 @@
 
         var sec = document.createElement('section');
         sec.className = 'zhg-cc';
-        var html = '<h2 class="zhg-cc-head">Core competencies</h2><div class="zhg-cc-row">';
+        var html = '<h2 class="zhg-cc-head">Our Focus</h2><div class="zhg-cc-row">';
         CC_CARDS.forEach(function (c) {
             html += '<article class="zhg-cc-card">' +
                 '<img src="' + c.img + '" alt="" loading="lazy">' +
@@ -257,6 +256,35 @@
                 d.classList.toggle('active', i === idx);
             });
         }, { passive: true });
+
+        // LOCAL STUDY ONLY: on localhost, swap in the reference section served
+        // by the study mirror (port 8743) so its exact behavior can be compared.
+        // Never activates on a deployed host; requires the pdw-mirror server.
+        if (/^(localhost|127\.)/.test(location.hostname) && !window.__zhgCCEmbed) {
+            window.__zhgCCEmbed = true;
+            var fr = document.createElement('iframe');
+            fr.className = 'zhg-cc-embed';
+            fr.src = 'http://localhost:8743/?zhg-embed';
+            fr.setAttribute('scrolling', 'no');
+            // must be visible from the start: the reference app inside only
+            // hydrates the section when it has a real viewport
+            fr.style.height = '56vw';
+            var ours = [].slice.call(sec.children);
+            ours.forEach(function (ch) { ch.style.display = 'none'; });
+            sec.appendChild(fr);
+            var gotHeight = false;
+            window.addEventListener('message', function (e) {
+                if (!e.data || !e.data.zhgCC) return;
+                gotHeight = true;
+                fr.style.height = e.data.zhgCC + 'px';
+            });
+            setTimeout(function () {
+                if (!gotHeight) { // mirror not running: restore the rebuilt section
+                    fr.remove();
+                    ours.forEach(function (ch) { ch.style.display = ''; });
+                }
+            }, 12000);
+        }
     }
 
     setInterval(function () {
